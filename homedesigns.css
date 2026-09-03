@@ -1,0 +1,9 @@
+css/* style.css */
+
+body {
+    /* Horizontally centers all text and inline elements on the page */
+    text-align: center; 
+}
+.text-container {
+  text-align: center;
+}
