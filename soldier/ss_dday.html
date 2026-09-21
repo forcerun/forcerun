@@ -46,9 +46,9 @@ const ctx = canvas.getContext('2d');
 const soldierSprite = new Image();
 soldierSprite.src = 'Run.png'; // Replace with actual sprite path
 
-const frameWidth = 84;   // Width of one soldier frame
-const frameHeight = 126;  // Height of one soldier frame
-const totalFrames = 3;   // Total animation frames in the marching cycle
+const frameWidth = TOTAL_WIDTH / 8;   // Total width divided by 8 frames
+const frameHeight = TOTAL_HEIGHT / 1; // Total height remains the same
+const totalFrames = 8;   // Total animation frames in the marching cycle
 let currentFrame = 0;
 let posX = - frameWidth;   // Start just off-screen left
 const posY = 180;        // Vertical ground alignment
