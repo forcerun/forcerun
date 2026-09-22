@@ -37,58 +37,70 @@
          </ul>
       </nav>
    </header>
-   <canvas id="marchCanvas" width="600" height="200"></canvas>
+<canvas id="marchCanvas" width="600" height="200"></canvas>
 <script>
-const canvas = document.getElementById('marchCanvas');
-const ctx = canvas.getContext('2d');
+  const canvas = document.getElementById('marchCanvas');
+  const ctx = canvas.getContext('2d');
 
-// Load your marching soldier sprite sheet
-const soldierSprite = new Image();
-soldierSprite.src = 'Run.png'; // Replace with actual sprite path
+  const soldierSprite = new Image();
+  soldierSprite.src = 'Run.png'; 
 
-const frameWidth = 86;   
-const frameHeight = 160; 
-const scale = 0.9;
-const totalFrames = 8;   // Total animation frames in the marching cycle
-let currentFrame = 0;
-let posX = -frameWidth * scale;    // Start just off-screen left
-const posY = 180;        // Vertical ground alignment
-let gameFrameCount = 0;
-const animationSpeed = 9; // Lower numbers make the feet move faster
+  // Base asset dimensions
+  const frameWidth = 86;
+  const frameHeight = 160; 
+  
+  // FIX: Scale down to 0.9 so the 160px height fits nicely inside the 200px canvas height
+  const scale = 0.9;       
+  
+  const totalFrames = 8; 
+  let currentFrame = 0;
+  let posX = -frameWidth * scale; 
+  
+  // FIX: Position the sprite vertically so it sits perfectly on the bottom frame edge
+  const posY = canvas.height - (frameHeight * scale) - 2; 
+  
+  let gameFrameCount = 0;
+  const animationSpeed = 9; 
 
-function animate() {
+  function animate() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    
-    // Draw simple background ground line
+
+    // Draw ground line dynamically pinned near the bottom of the frame
     ctx.strokeStyle = '#475569';
     ctx.lineWidth = 2;
-    ctx.beginPath(); ctx.moveTo(0, posY + frameHeight); ctx.lineTo(canvas.width, posY + frameHeight); ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(0, posY + (frameHeight * scale));
+    ctx.lineTo(canvas.width, posY + (frameHeight * scale));
+    ctx.stroke();
 
-    // Loop through the horizontal sequence of the sprite sheet
-    //drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
+    // Draw the scaled-down sprite
     ctx.drawImage(
-        soldierSprite, 
-        currentFrame * frameWidth, 0, frameWidth, frameHeight, 
-        posX, posY, frameWidth * 1.5, frameHeight * 1.5 // Scaled slightly larger
+      soldierSprite,
+      currentFrame * frameWidth, 
+      0, 
+      frameWidth, 
+      frameHeight, 
+      posX, 
+      posY, 
+      frameWidth * scale, 
+      frameHeight * scale
     );
 
-    // Advance position across screen
+    // Advance position across the new 600px wide track
     posX += 1.5;
-    if (posX > canvas.width) posX = -frameWidth; // Reset loop back to left side
+    if (posX > canvas.width) posX = -frameWidth * scale; 
 
-    // Handle frame timing rhythm 
     gameFrameCount++;
     if (gameFrameCount % animationSpeed === 0) {
-        currentFrame = (currentFrame + 1) % totalFrames;
+      currentFrame = (currentFrame + 1) % totalFrames;
     }
 
     requestAnimationFrame(animate);
-}
+  }
 
-// Start once image asset successfully pulls
-soldierSprite.onload = () => {
+  soldierSprite.onload = () => {
     animate();
-};
+  };
 </script>
    
 
