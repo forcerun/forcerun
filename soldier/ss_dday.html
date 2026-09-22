@@ -48,9 +48,10 @@ soldierSprite.src = 'Run.png'; // Replace with actual sprite path
 
 const frameWidth = 86;   
 const frameHeight = 160; 
+const scale = 0.9;
 const totalFrames = 8;   // Total animation frames in the marching cycle
 let currentFrame = 0;
-let posX = - frameWidth;   // Start just off-screen left
+let posX = -frameWidth * scale;    // Start just off-screen left
 const posY = 180;        // Vertical ground alignment
 let gameFrameCount = 0;
 const animationSpeed = 9; // Lower numbers make the feet move faster
