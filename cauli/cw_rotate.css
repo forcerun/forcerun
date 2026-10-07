@@ -1,0 +1,86 @@
+@charset "utf-8";
+
+/*
+   New Perspectives on HTML5 and CSS3, 8th Edition
+   Tutorial 5
+   Case Problem 2
+   
+   Cauli-Wood Gallery Reset Style Sheet
+   
+   Filename: cw_rotate.css
+   Author: Nathan Johnson
+   Date: 10/7/2026
+
+*/
+
+/* CSS to rotate the images */
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+
+#pic1,
+#pic7{
+	display: inline-block;
+animation: rotation 2s infinite linear;
+position: relative;
+  z-index: 10;
+}
+
+#pic1:hover,
+#pic7:hover {
+  animation-play-state: paused;
+}
+
+#pic7 {
+	width: 150px; 
+	float: right;
+}
+
+
+/* dynamic gradient background and fade-in */
+p {
+  /* Engaging, slow color-shifting background */
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  background-size: 400% 400%;
+  animation: gradientBG 15s ease infinite, fadeInBody 1.2s ease-out forwards;
+  
+  /* Text smoothing and layout stability */
+  color: #ffffff; 
+  font-family: sans-serif;
+  margin: 0;
+  padding: 20px;
+  position: relative;
+  z-index: 1;
+}
+
+/* 1. Animation for the background color shift */
+@keyframes gradientBG {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* 2. Animation for the smooth text fade-in and slide-up */
+@keyframes fadeInBody {
+  from {
+    opacity: 0;
+    transform: translateY(20px); /* Slides the layout smoothly into place */
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
