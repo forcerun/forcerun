@@ -1,0 +1,207 @@
+@charset "utf-8";
+
+/*
+     Style Sheet for Space Defender
+   Filename: styles.css
+
+Author: Nathan Johnson
+Date: 11/12/2026
+*/
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  padding: 20px 0; /* Adds breathing room at the top and bottom when scrolling */
+  background: #050510 url("wallpaper.png") center / cover no-repeat fixed;
+  color: #fff;
+  font-family: 'Courier New', Courier, monospace;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start; /* Keeps the top of the page visible */
+}
+        h1 {
+            margin: 5px 0;
+            color: #00ffcc;
+            text-shadow: 0 0 10px #00ffcc;
+        }
+		        h2 {
+            margin: 5px 0;
+            color: #00ffcc;
+            text-shadow: 0 0 9px #00ffcc;
+        }
+        #scoreboard {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+        canvas {
+            border: 2px solid #00ffcc;
+            background: radial-gradient(circle, #111530 0%, #050510 100%);
+            box-shadow: 0 0 20px rgba(0, 255, 204, 0.3);
+        }
+        #saucers {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: calc(50vw - 310px);
+            min-width: 100px;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-around;
+            pointer-events: none;
+        }
+        #saucers img {
+            width: 120px;
+            max-width: 90%;
+        }
+        @media (max-width: 1000px) {
+            body {
+                padding-top: 90px;
+                box-sizing: border-box;
+            }
+            #saucers {
+                width: 100vw;
+                min-width: 0;
+                height: 90px;
+                flex-direction: row;
+            }
+            #saucers img {
+                width: 80px;
+            }
+        }
+        #playAgain {
+            margin-top: 10px;
+            padding: 8px 24px;
+            font-family: inherit;
+            font-size: 18px;
+            color: #00ffcc;
+            background: #050510;
+            border: 2px solid #00ffcc;
+            cursor: pointer;
+        }
+        #playAgain:hover:not(:disabled) {
+            background: #00ffcc;
+            color: #050510;
+        }
+        #playAgain:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+        .instructions {
+            margin-top: 10px;
+            color: #87ceeb;
+            font-size: .75rem;
+            font-weight: bold;
+			margin: 20px auto;
+			background-color: black;
+			color: white;
+			padding: 25px;
+        }
+		
+		.play-button {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  border: none;
+  background-color: #1db954;
+  color: white;
+  font-size: 22px;
+  margin:20px auto;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.play-button:hover {
+  background-color: #1ed760;
+  transform: scale(1.05);
+}
+
+article {
+  width: 33.33%;
+  min-width: 300px;
+  margin: 20px auto;
+  background-color: black;
+  color: white;
+  padding: 25px;
+  box-sizing: border-box;
+}
+
+/* Side containers occupying the empty margins */
+.side-stage {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: 30%;
+  pointer-events: none; /* Prevents blocking clicks on your page */
+  overflow: hidden;
+  z-index: -1; /* Keeps animation behind your article */
+}
+
+.left-stage {
+  left: 0;
+}
+
+.right-stage {
+  right: 0;
+}
+
+/* Spacecraft moving side-to-side at the top */
+.ufo {
+  position: absolute;
+  top: 40px;
+  font-size: 36px;
+  animation: patrol 4s ease-in-out infinite alternate;
+}
+
+/* Tank patrolling at the bottom */
+.tank {
+  position: absolute;
+  bottom: 30px;
+  font-size: 36px;
+  animation: patrol 3s ease-in-out infinite alternate-reverse;
+}
+
+/* Laser beam shooting upward */
+.laser {
+  position: absolute;
+  bottom: 70px;
+  width: 4px;
+  height: 20px;
+  background-color: #39ff14; /* Classic neon arcade green */
+  box-shadow: 0 0 8px #39ff14;
+  animation: shoot 1.2s linear infinite, patrol 3s ease-in-out infinite alternate-reverse;
+}
+
+/* Side-to-side movement */
+@keyframes patrol {
+  0% { left: 15%; }
+  100% { left: 75%; }
+}
+
+/* Laser firing from bottom to top */
+@keyframes shoot {
+  0% {
+    bottom: 70px;
+    opacity: 1;
+  }
+  85% {
+    opacity: 1;
+  }
+  100% {
+    bottom: 92%;
+    opacity: 0;
+  }
+}
+
+/* Hide side animations on narrow mobile screens so text stays clean */
+@media (max-width: 900px) {
+  .side-stage {
+    display: none;
+  }
+}

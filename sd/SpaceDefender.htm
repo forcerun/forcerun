@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sci-Fi Space Defender</title>
+    
+	<link href="style.css" rel="stylesheet" />
+</head>
+<body>
+
+    <h1>SPACE DEFENDER</h1>
+	<h2>Nathan Johnson</h2>
+    <div id="scoreboard">SCORE: <span id="score">0</span> | LIVES: <span id="lives">3</span></div>
+    <canvas id="gameCanvas" width="540" height="400"></canvas>
+        <button id="playAgain" disabled>Play</button>    <div class="instructions">Use [←] [→] Arrow Keys to Move, Press [Spacebar] to Fire Torpedoes</div>
+<script src="script.js" defer></script>
+    <div>
+	<audio id="bg-music" src="background-soundtrack.mp3" loop></audio>
+
+<button id="music-btn" class="play-button" aria-label="Play Music">
+  ▶ MUSIC
+</button>
+
+	</div>
+	<article>
+	<p></p>
+	<p>In 1977, Tomohiro Nishikado single-handedly created Space Invaders, handling its design, programming, artwork, sound, and custom arcade hardware. Released in 1978, the game became a massive commercial hit, selling over 360,000 arcade cabinets and grossing more than $1 billion by 1981.</p>
+<p>Because of hardware limits and Taito's moral concerns over depicting human violence, Nishikado set the game against a black space background and used The War of the Worlds-inspired aliens as enemies. As the foundational title of the shoot 'em up genre, Space Invaders introduced several enduring video game staples:</p>
+<p>• Gameplay Mechanics: Multiple player lives, destructible cover barriers, and hordes of enemies that speed up and respond to player movement.</p>
+<p>• Audio & Scoring: The first saved high score system and a continuous, dynamic background soundtrack that paced up with the action.</p>
+<p>Ultimately, Space Invaders transformed video gaming from a bar novelty into a mainstream global industry. It ended the 1977 video game crash, launched the golden age of arcades, became the Atari 2600's first "killer app," and inspired legendary creators like Shigeru Miyamoto alongside modern shooter franchises such as Doom and Halo.</p>
+	</article>
+	<!-- Left Side Arcade Animation -->
+<div class="side-stage left-stage" aria-hidden="true">
+  <div class="ufo">👾</div>
+  <div class="laser"></div>
+  <div class="tank">🚀</div>
+</div>
+
+<!-- Right Side Arcade Animation -->
+<div class="side-stage right-stage" aria-hidden="true">
+  <div class="ufo">🛸</div>
+  <div class="laser"></div>
+  <div class="tank">🚀</div>
+</div>
+	
+</body>
+</html>
