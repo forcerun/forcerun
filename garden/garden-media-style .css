@@ -1,7 +1,18 @@
-/* Shared base styles for all video containers */
+/* Responsive grid layout tailored for vertical videos */
+.video-grid {
+  display: grid;
+  /* 240px allows 3 Shorts to sit side-by-side nicely on desktop */
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+  max-width: 900px; /* Prevents a single Short from stretching too wide/tall */
+  margin: 0 auto;
+}
+
+/* Maintains a 9:16 vertical aspect ratio on all screen sizes */
 .video-container {
   position: relative;
   width: 100%;
+  aspect-ratio: 9 / 16;
   overflow: hidden;
   border-radius: 8px;
 }
@@ -12,31 +23,4 @@
   left: 0;
   width: 100%;
   height: 100%;
-  border: 0;
-}
-
-/* --- GRID & ASPECT RATIO FOR YOUTUBE SHORTS (9:16) --- */
-.shorts-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 20px;
-  max-width: 900px;
-  margin: 0 auto 40px auto; /* Bottom margin separates sections */
-}
-
-.video-container.is-short {
-  aspect-ratio: 9 / 16;
-}
-
-/* --- GRID & ASPECT RATIO FOR STANDARD VIDEOS (16:9) --- */
-.standard-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 20px;
-  max-width: 1200px;
-  margin: 0 auto 40px auto;
-}
-
-.video-container.is-standard {
-  aspect-ratio: 16 / 9;
 }
