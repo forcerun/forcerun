@@ -34,6 +34,7 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  overflow-x: hidden; /* Prevents horizontal scroll from off-screen animations */
 }
 
 /* =========================================
@@ -69,8 +70,9 @@ header {
   text-align: center;
   border-bottom: 4px solid var(--brand-secondary);
   animation: sproutUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-    position: relative;
+  position: relative;
 }
+
 .header-logo {
   position: absolute;
   top: 1.15rem;
@@ -78,7 +80,7 @@ header {
   display: block;
   width: 72px;
   height: 72px;
-  border-radius: 50%;       /* Clips square corners into a clean circle */
+  border-radius: 50%;
   overflow: hidden;
   border: 2px solid var(--brand-secondary);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
@@ -97,16 +99,6 @@ header {
 .header-logo:focus {
   transform: scale(1.06);
   border-color: var(--accent-cta);
-}
-
-/* Stack logo cleanly above the title on narrow mobile screens */
-@media (max-width: 600px) {
-  .header-logo {
-    position: static;
-    margin: 0 auto 0.75rem;
-    width: 64px;
-    height: 64px;
-  }
 }
 
 header h1 {
@@ -134,7 +126,7 @@ nav a {
   font-weight: 700;
   font-size: 0.95rem;
   letter-spacing: 1px;
-  padding: 0.4rem 0;
+  padding: 0.4rem 0.25rem;
   transition: color 0.3s ease;
 }
 
@@ -239,6 +231,7 @@ h3 {
 
 p {
   margin-bottom: 1rem;
+  overflow-wrap: break-word; /* Prevents long credit URLs from overflowing on mobile */
 }
 
 p:last-child {
@@ -250,7 +243,7 @@ strong {
 }
 
 /* =========================================
-   7. LINKS & YOUTUBE CALL-TO-ACTION BUTTONS
+   7. LINKS & CALL-TO-ACTION BUTTONS
    ========================================= */
 a {
   color: var(--brand-primary);
@@ -269,6 +262,10 @@ main p a {
   display: inline-block;
   background-color: var(--accent-cta);
   color: var(--text-inverse);
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 1rem;
   text-decoration: none;
   font-weight: 600;
   padding: 0.65rem 1.25rem;
@@ -279,7 +276,8 @@ main p a {
               background-color 0.25s ease,
               box-shadow 0.25s ease;
 }
-button,
+
+button:hover,
 .btn:hover,
 main p a:hover {
   background-color: #B05B3D;
@@ -287,34 +285,31 @@ main p a:hover {
   transform: translateY(-3px);
   box-shadow: 0 8px 18px rgba(196, 109, 78, 0.4);
 }
-button,
+
+button:active,
 .btn:active,
 main p a:active {
   transform: translateY(-1px);
 }
 
 /* =========================================
-   7B. Photos
+   7B. PHOTOS GRID
    ========================================= */
-
 img {
   max-width: 100%;
   height: auto;
   display: block;
 }
 
-/* Responsive 3x2 grid layout on desktop */
 .photo-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 18px;
   width: 100%;
-  max-width: 1000px;
-  margin: 1rem auto 0;
-    padding: 20px;
+  margin: 1.25rem 0 0;
+  padding: 0;
 }
 
-/* Card wrapper for each photo and caption */
 .photo-item {
   margin: 0;
   overflow: hidden;
@@ -323,7 +318,6 @@ img {
   border: 1px solid rgba(122, 148, 126, 0.4);
   box-shadow: 0 4px 12px rgba(43, 36, 30, 0.08);
   transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-
 }
 
 .photo-item:hover {
@@ -332,7 +326,6 @@ img {
   box-shadow: 0 10px 22px rgba(46, 74, 54, 0.16);
 }
 
-/* Uniform square thumbnails without squishing */
 .photo-item img {
   width: 100%;
   aspect-ratio: 1 / 1;
@@ -360,9 +353,14 @@ footer {
   background-color: var(--brand-primary);
   color: var(--text-inverse);
   text-align: center;
-  padding: 1.25rem;
+  padding: 1.25rem 1rem;
   font-size: 0.9rem;
   border-top: 4px solid var(--brand-secondary);
+}
+
+footer a {
+  color: var(--bg-surface);
+  overflow-wrap: break-word;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -374,46 +372,104 @@ footer {
 }
 
 /* =========================================
-   9. MOBILE RESPONSIVENESS
+   9. TABLET & MOBILE RESPONSIVENESS
    ========================================= */
+/* Tablet & Small Laptop (under 900px) */
+@media (max-width: 900px) {
+  #garden-vine-right,
+  #garden-vine-left {
+    width: 70px !important;
+    opacity: 0.85;
+  }
+}
+
+/* Mobile Phones (under 600px) */
 @media (max-width: 600px) {
+  /* Fixes zoomed/pixelated fixed backgrounds on mobile Safari & Chrome */
+  body {
+    background-attachment: scroll;
+  }
+
+  header {
+    padding: 1.25rem 1rem 1rem;
+  }
+
+  .header-logo {
+    position: static;
+    margin: 0 auto 0.65rem;
+    width: 64px;
+    height: 64px;
+  }
+
   header h1 {
     font-size: 1.75rem;
+    margin-bottom: 0.5rem;
   }
 
   nav ul {
-    gap: 1rem;
+    gap: 1.25rem;
+  }
+
+  nav a {
+    font-size: 0.9rem;
+    padding: 0.5rem 0.25rem; /* Larger touch target for thumbs */
+  }
+
+  main {
+    width: 94%;
+    margin: 1.25rem auto;
+    gap: 1.25rem;
   }
 
   main section,
   main article,
   .card {
-    padding: 1.25rem 1.5rem;
+    padding: 1.25rem 1.25rem;
   }
 
+  h2 {
+    font-size: 1.45rem;
+  }
+
+  h3 {
+    font-size: 1.15rem;
+  }
+
+  /* Full-width stacked buttons for easy thumb tapping */
+  button,
   .btn,
   main p a {
     display: block;
+    width: 100%;
     text-align: center;
     margin-right: 0;
     margin-bottom: 0.65rem;
+    padding: 0.8rem 1rem;
   }
 
-  #garden-vine-container {
-    width: 60px !important;
-    right: 6px !important;
-    opacity: 0.8;
+  /* Single-column clean photo cards on narrow phones */
+  .photo-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
   }
-}
 
+  /* Tuck decorative vines cleanly into phone edges behind cards */
   #garden-vine-right {
-    width: 55px !important;
-    right: 4px !important;
-    opacity: 0.75;
+    width: 48px !important;
+    right: 2px !important;
+    opacity: 0.65;
+    z-index: 1 !important;
   }
 
   #garden-vine-left {
-    width: 55px !important;
-    left: 4px !important;
-    opacity: 0.75;
+    width: 48px !important;
+    left: 2px !important;
+    opacity: 0.65;
+    z-index: 1 !important;
   }
+
+  /* Slightly smaller flying bird higher up in the header/sky on mobile */
+.bird-sprite {
+top: 8%;
+}
+}

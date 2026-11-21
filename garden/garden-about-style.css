@@ -20,6 +20,10 @@
   padding: 0;
 }
 
+html, body {
+  overflow-x: hidden; /* Prevents horizontal scrollbars from flying sprites */
+}
+
 body {
   background-color: var(--bg-page);
   background-image: url("images/aboutback.jpg");
@@ -79,7 +83,7 @@ header {
   display: block;
   width: 72px;
   height: 72px;
-  border-radius: 50%;       /* Clips square corners into a clean circle */
+  border-radius: 50%;
   overflow: hidden;
   border: 2px solid var(--brand-secondary);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
@@ -98,16 +102,6 @@ header {
 .header-logo:focus {
   transform: scale(1.06);
   border-color: var(--accent-cta);
-}
-
-/* Stack logo cleanly above the title on narrow mobile screens */
-@media (max-width: 600px) {
-  .header-logo {
-    position: static;
-    margin: 0 auto 0.75rem;
-    width: 64px;
-    height: 64px;
-  }
 }
 
 header h1 {
@@ -180,6 +174,7 @@ main {
 main section,
 main article,
 .card {
+  position: relative; /* Anchors absolute children like .sitting-bird */
   background-color: rgba(246, 243, 236, 0.88);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
@@ -224,7 +219,7 @@ main article:hover,
 }
 
 /* =========================================
-   6. TYPOGRAPHY & HEADINGS
+   6. TYPOGRAPHY, LISTS & RESPONSIVE IMAGES
    ========================================= */
 h2, h3 {
   color: var(--brand-primary);
@@ -241,6 +236,7 @@ h2 {
 
 h3 {
   font-size: 1.3rem;
+  margin-top: 1.25rem;
 }
 
 p {
@@ -253,6 +249,47 @@ p:last-child {
 
 strong {
   color: var(--brand-primary);
+}
+
+/* Restore list indentation inside cards so markers don't clip */
+main ul,
+main ol {
+  padding-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+main li {
+  margin-bottom: 0.5rem;
+}
+
+main li:last-child {
+  margin-bottom: 0;
+}
+
+/* Keep all content images & figures fluid on mobile */
+main img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 8px;
+}
+
+figure {
+  margin: 1.25rem 0;
+  text-align: center;
+}
+
+figure img {
+  margin: 0 auto;
+  box-shadow: 0 4px 14px rgba(43, 36, 30, 0.12);
+}
+
+figcaption {
+  font-size: 0.9rem;
+  font-style: italic;
+  color: var(--text-main);
+  opacity: 0.85;
+  margin-top: 0.5rem;
 }
 
 /* =========================================
@@ -321,19 +358,56 @@ footer {
 /* =========================================
    9. MOBILE RESPONSIVENESS
    ========================================= */
+@media (max-width: 768px) {
+  /* Prevents iOS Safari background zoom bug */
+  body {
+    background-attachment: scroll;
+  }
+}
+
 @media (max-width: 600px) {
+  header {
+    padding: 1.5rem 1rem 1rem;
+  }
+
+  .header-logo {
+    position: static;
+    margin: 0 auto 0.75rem;
+    width: 64px;
+    height: 64px;
+  }
+
   header h1 {
     font-size: 1.75rem;
   }
 
   nav ul {
-    gap: 1rem;
+    gap: 1.15rem;
+  }
+
+  main {
+    width: 94%;
+    margin: 1.25rem auto;
+    gap: 1.25rem;
   }
 
   main section,
   main article,
   .card {
-    padding: 1.25rem 1.5rem;
+    padding: 1.25rem 1.15rem;
+  }
+
+  h2 {
+    font-size: 1.45rem;
+  }
+
+  h3 {
+    font-size: 1.15rem;
+  }
+
+  main ul,
+  main ol {
+    padding-left: 1.25rem;
   }
 
   .btn,
@@ -342,6 +416,11 @@ footer {
     text-align: center;
     margin-right: 0;
     margin-bottom: 0.65rem;
+  }
+
+  .sitting-bird {
+    right: 16px;
+    transform: scale(1.35);
   }
 
   #garden-vine-right {
@@ -369,7 +448,7 @@ footer {
 
   background-image: url("images/bird-sprite.png");
   background-repeat: no-repeat;
-  background-position: 0px -96px; /* Starts on Row 4 (flying right) */
+  background-position: 0px -96px;
   image-rendering: pixelated;
 
   pointer-events: none;
@@ -380,7 +459,6 @@ footer {
     flyAcrossAndBack 24s linear infinite;
 }
 
-/* Steps horizontally across the 3 frames (0px -> -96px) */
 @keyframes flapWings {
   0% {
     background-position-x: 0px;
@@ -390,9 +468,7 @@ footer {
   }
 }
 
-/* Switches Y-row cleanly at each edge: Row 4 (-96px) right, Row 1 (0px) left */
 @keyframes flyAcrossAndBack {
-  /* Fly Left -> Right using Row 4 (-96px) */
   0% {
     left: -40px;
     background-position-y: -96px;
@@ -406,58 +482,49 @@ footer {
     background-position-y: -96px;
     transform: translateY(4px) scale(1.75);
   }
-
-  /* Switch to Row 1 (0px) off-screen to fly Right -> Left */
   50% {
     left: calc(100vw + 40px);
     background-position-y: 0px;
     transform: translateY(4px) scale(1.75);
   }
   75% {
-    transform: translateY(-10px) scale(1.75);
-  }
-  99.9% {
-    left: -40px;
-    background-position-y: 0px;
-    transform: translateY(0px) scale(1.75);
-  }
-  100% {
-    left: -40px;
-    background-position-y: -96px;
-    transform: translateY(0px) scale(1.75);
-  }
+transform: translateY(-10px) scale(1.75);
 }
-
+99.9% {
+left: -40px;
+background-position-y: 0px;
+transform: translateY(0px) scale(1.75);
+}
+100% {
+left: -40px;
+background-position-y: -96px;
+transform: translateY(0px) scale(1.75);
+}
+}
 /* =========================================
-   PERCHED SITTING BIRD (Bottom Half of 96x256)
-   ========================================= */
+PERCHED SITTING BIRD (Bottom Half of 96x256)
+========================================= /
 .sitting-bird {
-  position: absolute;
-  top: 50px;                /* Rests feet directly on the top border of the card */
-  right: 28px;               /* Sits near the top-right corner */
-  width: 32px;
-  height: 32px;
-
-  background-image: url("images/bird-sprite.png");
-  background-repeat: no-repeat;
-  /* Bottom 4 rows are sitting: Row 5 = -128px, Row 6 = -160px, Row 7 = -192px, Row 8 = -224px */
-  background-position: 0px -128px;
-  image-rendering: pixelated;
-
-  transform: scale(1.75);
-  transform-origin: bottom center;
-  pointer-events: none;
-  z-index: 20;
-
-  /* Gentle, slow idle cycle through the 3 sitting frames */
-  animation: sittingIdle 2.4s steps(3) infinite;
+position: absolute;
+top: -32px; / Rests feet cleanly on the top border of a relative card */
+right: 28px;
+width: 32px;
+height: 32px;
+background-image: url("images/bird-sprite.png");
+background-repeat: no-repeat;
+background-position: 0px -128px;
+image-rendering: pixelated;
+transform: scale(1.75);
+transform-origin: bottom center;
+pointer-events: none;
+z-index: 20;
+animation: sittingIdle 2.4s steps(3) infinite;
 }
-
 @keyframes sittingIdle {
-  0% {
-    background-position: 0px -128px;
-  }
-  100% {
-    background-position: -96px -128px;
-  }
+0% {
+background-position: 0px -128px;
+}
+100% {
+background-position: -96px -128px;
+}
 }
