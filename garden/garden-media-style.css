@@ -1,36 +1,284 @@
 @charset "utf-8";
 
-/* Base page defaults */
+/* =========================================
+   1. COLOR PALETTE VARIABLES
+   ========================================= */
+:root {
+  --bg-page: #F6F3EC;        /* Sunlit Oat / Linen */
+  --bg-surface: #EAE5D9;     /* Soft Pebble / Mist */
+  --brand-primary: #2E4A36;  /* Deep Moss Green */
+  --brand-secondary: #7A947E;/* Sage Herb */
+  --accent-cta: #C46D4E;     /* Warm Terracotta */
+  --text-main: #2B241E;      /* Rich Loam / Umber */
+  --text-inverse: #F6F3EC;   /* Light text for dark buttons/headers */
+}
+
+/* =========================================
+   2. BASE & PAGE BACKGROUND
+   ========================================= */
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-  margin: 0;
-  padding: 20px;
-  font-family: Arial, sans-serif;
-  background-color: #1a1a1a;
-  color: #f0f0f0;
+  background-color: var(--bg-page);
+ 
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-color: #2B241E;
+
+  color: var(--text-main);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  line-height: 1.65;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
-/* Responsive grid layout tailored for vertical videos */
+/* =========================================
+   3. KEYFRAME ANIMATIONS
+   ========================================= */
+@keyframes sproutUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes gentleBreeze {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-3px) rotate(0.4deg);
+  }
+}
+
+/* =========================================
+   4. HEADER & NAVIGATION
+   ========================================= */
+header {
+  background-color: var(--brand-primary);
+  color: var(--text-inverse);
+  padding: 2rem 1.5rem 1.25rem;
+  text-align: center;
+  border-bottom: 4px solid var(--brand-secondary);
+  animation: sproutUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    position: relative;
+}
+.header-logo {
+  position: absolute;
+  top: 1.15rem;
+  left: 1.5rem;
+  display: block;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;       /* Clips square corners into a clean circle */
+  overflow: hidden;
+  border: 2px solid var(--brand-secondary);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+  transition: transform 0.25s ease, border-color 0.25s ease;
+  z-index: 10;
+}
+
+.header-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.header-logo:hover,
+.header-logo:focus {
+  transform: scale(1.06);
+  border-color: var(--accent-cta);
+}
+
+/* Stack logo cleanly above the title on narrow mobile screens */
+@media (max-width: 600px) {
+  .header-logo {
+    position: static;
+    margin: 0 auto 0.75rem;
+    width: 64px;
+    height: 64px;
+  }
+}
+header h1 {
+  color: var(--text-inverse);
+  font-size: 2.25rem;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.75rem;
+  display: inline-block;
+  animation: gentleBreeze 6s ease-in-out infinite;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+  padding: 0.5rem 0;
+}
+
+nav a {
+  position: relative;
+  color: var(--text-inverse);
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 1px;
+  padding: 0.4rem 0;
+  transition: color 0.3s ease;
+}
+
+nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 3px;
+  background-color: var(--accent-cta);
+  border-radius: 2px;
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+nav a:hover,
+nav a:focus {
+  color: var(--bg-surface);
+}
+
+nav a:hover::after,
+nav a:focus::after {
+  transform: scaleX(1);
+}
+
+/* =========================================
+   5. MAIN CONTENT & FROSTED CARDS
+   ========================================= */
+main {
+  width: 92%;
+  max-width: 1040px; /* Slightly wider than Home/About to give 3-column video/photo grids breathing room */
+  margin: 2rem auto;
+  padding: 0.5rem 0 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+  flex: 1;
+}
+
+main section,
+main article,
+.card {
+  background-color: rgba(246, 243, 236, 0.88);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(122, 148, 126, 0.35);
+  border-left: 5px solid var(--brand-secondary);
+  border-radius: 12px;
+  padding: 1.75rem 2rem;
+  box-shadow: 0 8px 24px rgba(43, 36, 30, 0.08);
+
+  opacity: 0;
+  animation: sproutUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
+}
+
+main section:nth-child(1),
+main article:nth-child(1) {
+  animation-delay: 0.15s;
+}
+
+main section:nth-child(2),
+main article:nth-child(2) {
+  animation-delay: 0.3s;
+}
+
+main section:nth-child(3),
+main article:nth-child(3) {
+  animation-delay: 0.45s;
+}
+
+main section:hover,
+main article:hover,
+.card:hover {
+  transform: translateY(-3px);
+  background-color: rgba(246, 243, 236, 0.96);
+  border-left-color: var(--brand-primary);
+  box-shadow: 0 12px 28px rgba(46, 74, 54, 0.14);
+}
+
+/* =========================================
+   6. TYPOGRAPHY & HEADINGS
+   ========================================= */
+h2, h3 {
+  color: var(--brand-primary);
+  line-height: 1.25;
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+}
+
+h2 {
+  font-size: 1.75rem;
+  border-bottom: 2px solid var(--brand-secondary);
+  padding-bottom: 0.4rem;
+}
+
+h3 {
+  font-size: 1.3rem;
+}
+
+p {
+  margin-bottom: 1rem;
+}
+
+p:last-child {
+  margin-bottom: 0;
+}
+
+strong {
+  color: var(--brand-primary);
+}
+
+/* =========================================
+   7. YOUTUBE SHORTS & PHOTO GRIDS
+   ========================================= */
+/* Responsive grid layout tailored for 9:16 vertical Shorts */
 .video-grid {
   display: grid;
-  /* 240px allows 3 Shorts to sit side-by-side nicely on desktop */
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 20px;
-  width:100%;
-  max-width: 900px; /* Prevents a single Short from stretching too wide/tall */
-  margin: 0 auto;
+  width: 100%;
+  max-width: 900px;
+  margin: 1rem auto 0;
 }
 
-/* Maintains a 9:16 vertical aspect ratio on all screen sizes */
 .video-container {
   position: relative;
   width: 100%;
   aspect-ratio: 9 / 16;
   overflow: hidden;
-  border-radius: 8px;
+  border-radius: 10px;
+  border: 2px solid rgba(122, 148, 126, 0.4);
+  box-shadow: 0 6px 16px rgba(43, 36, 30, 0.12);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.video-container:hover {
+  transform: translateY(-4px);
+  border-color: var(--accent-cta);
+  box-shadow: 0 10px 24px rgba(46, 74, 54, 0.2);
 }
 
 .video-container iframe {
@@ -46,7 +294,6 @@ img {
   max-width: 100%;
   height: auto;
   display: block;
-  border-radius: 8px;
 }
 
 /* Responsive 3x2 grid layout on desktop */
@@ -56,15 +303,26 @@ img {
   gap: 20px;
   width: 100%;
   max-width: 1000px;
-  margin: 0 auto;
-  padding: 20px;
+  margin: 1rem auto 0;
+    padding: 20px;
 }
 
 /* Card wrapper for each photo and caption */
 .photo-item {
   margin: 0;
   overflow: hidden;
-  border-radius: 8px;
+  border-radius: 10px;
+  background-color: var(--bg-surface);
+  border: 1px solid rgba(122, 148, 126, 0.4);
+  box-shadow: 0 4px 12px rgba(43, 36, 30, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+
+}
+
+.photo-item:hover {
+  transform: translateY(-4px);
+  border-color: var(--brand-primary);
+  box-shadow: 0 10px 22px rgba(46, 74, 54, 0.16);
 }
 
 /* Uniform square thumbnails without squishing */
@@ -73,10 +331,119 @@ img {
   aspect-ratio: 1 / 1;
   object-fit: cover;
   display: block;
+  transition: transform 0.4s ease;
+}
+
+.photo-item:hover img {
+  transform: scale(1.03);
 }
 
 .photo-item figcaption {
-  padding: 8px 4px;
+  padding: 10px 12px;
   font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--brand-primary);
   text-align: center;
+}
+
+/* =========================================
+   8. LINKS & YOUTUBE CALL-TO-ACTION BUTTONS
+   ========================================= */
+a {
+  color: var(--brand-primary);
+  font-weight: 600;
+  text-decoration-color: var(--brand-secondary);
+  text-underline-offset: 3px;
+}
+
+a:hover {
+  color: var(--accent-cta);
+}
+
+.btn,
+p a[href*="youtube"] {
+  display: inline-block;
+  background-color: var(--accent-cta);
+  color: var(--text-inverse);
+  text-decoration: none;
+  font-weight: 600;
+  padding: 0.65rem 1.25rem;
+  border-radius: 8px;
+  margin: 0.35rem 0.5rem 0.35rem 0;
+  box-shadow: 0 4px 10px rgba(196, 109, 78, 0.25);
+  transition: transform 0.25s cubic-bezier(0.25, 0.8, 0.25, 1),
+              background-color 0.25s ease,
+              box-shadow 0.25s ease;
+}
+
+.btn:hover,
+p a[href*="youtube"]:hover {
+  background-color: #B05B3D;
+  color: var(--text-inverse);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 18px rgba(196, 109, 78, 0.4);
+}
+
+.btn:active,
+p a[href*="youtube"]:active {
+  transform: translateY(-1px);
+}
+
+/* =========================================
+   9. FOOTER & ACCESSIBILITY
+   ========================================= */
+footer {
+  background-color: var(--brand-primary);
+  color: var(--text-inverse);
+  text-align: center;
+  padding: 1.25rem;
+  font-size: 0.9rem;
+  border-top: 4px solid var(--brand-secondary);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* =========================================
+   10. MOBILE RESPONSIVENESS
+   ========================================= */
+@media (max-width: 600px) {
+  header h1 {
+    font-size: 1.75rem;
+  }
+
+  nav ul {
+    gap: 1rem;
+  }
+
+  main section,
+  main article,
+  .card {
+    padding: 1.25rem 1.5rem;
+  }
+
+  .btn,
+  p a[href*="youtube"] {
+    display: block;
+    text-align: center;
+    margin-right: 0;
+    margin-bottom: 0.65rem;
+  }
+
+  #garden-vine-right {
+    width: 55px !important;
+    right: 4px !important;
+    opacity: 0.75;
+  }
+
+  #garden-vine-left {
+    width: 55px !important;
+    left: 4px !important;
+    opacity: 0.75;
+  }
 }

@@ -10,20 +10,21 @@
    <meta charset="utf-8">
    <title>Noob Gardener</title>
 <link rel="stylesheet" href="garden-home-style.css">
-<script src="garden-home-script.js" defer></script>
+
 </head>
 <body>
    <header>
-      <h1>Noob Gardener</h1>
-   </header>
-   <nav>
-      <h1>Website</h1>
-      <ul>
+	  <a href="garden-home.html" class="header-logo" aria-label="Noob Gardener Home">
+		<img src="images/logo.jpg" alt="Noob Gardener Logo">
+	  </a>
+	  <h1>Noob Gardener</h1>
+	  <nav><ul>
          <li><a href="garden-home.html">HOME</a></li>
          <li><a href="garden-about.html">ABOUT</a></li>
          <li><a href="garden-media.html">MEDIA</a></li>
-      </ul>
-   </nav>
+      </ul></nav>
+   </header>
+  
    <main>
       <section class="welcome-section">
          <h2>Welcome to the Site!</h2>
@@ -45,10 +46,31 @@
             I wouldn't even know where to start without the amazing gardening community online. A huge thank you to all the other creators who have been generously sharing their gardening guides, tips, and tutorials—your advice is helping turn this noob gardener into a grower!
          </p>
       </section>
+	  
+	  <section>
+  <h2>What's Growing Now</h2>
+  <p>A quick peek at what is currently growing:</p>
+  <div class="photo-grid">
+    <figure class="photo-item">
+      <img src="images/seed-starters.jpg" alt="Seed starters">
+      <figcaption>Seed starters</figcaption>
+    </figure>
+    <figure class="photo-item">
+      <img src="images/seedlingsgrowth.jpg" alt="Seedlings starting to grow!">
+      <figcaption>Seedlings starting to grow!</figcaption>
+    </figure>
+    <figure class="photo-item">
+      <img src="images/bushes.jpg" alt="First year of growth on the berry bushes">
+      <figcaption>First year of growth on the berry bushes</figcaption>
+    </figure>
+  </div>
+</section>
    </main>
+   <script src="garden-home-script.js" defer></script>
 <footer>
 <p>&copy; Nathan Johnson</p>
 </footer>
+
 </body>
 
 </html>
