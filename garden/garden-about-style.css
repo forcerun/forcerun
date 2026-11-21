@@ -503,10 +503,10 @@ transform: translateY(0px) scale(1.75);
 }
 /* =========================================
 PERCHED SITTING BIRD (Bottom Half of 96x256)
-========================================= /
+========================================= */
 .sitting-bird {
 position: absolute;
-top: -32px; / Rests feet cleanly on the top border of a relative card */
+top: 49px; /* Rests feet cleanly on the top border of a relative card */
 right: 28px;
 width: 32px;
 height: 32px;
