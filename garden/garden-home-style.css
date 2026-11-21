@@ -263,6 +263,7 @@ a:hover {
   color: var(--accent-cta);
 }
 
+button,
 .btn,
 main p a {
   display: inline-block;
@@ -278,7 +279,7 @@ main p a {
               background-color 0.25s ease,
               box-shadow 0.25s ease;
 }
-
+button,
 .btn:hover,
 main p a:hover {
   background-color: #B05B3D;
@@ -286,7 +287,7 @@ main p a:hover {
   transform: translateY(-3px);
   box-shadow: 0 8px 18px rgba(196, 109, 78, 0.4);
 }
-
+button,
 .btn:active,
 main p a:active {
   transform: translateY(-1px);

@@ -28,6 +28,7 @@
    <main>
       <section class="welcome-section">
          <h2>Welcome to the Site!</h2>
+
          <p>
             I'm brand new to gardening and wanted to create a space to share the entire experience—from the wins to the learning moments. I picked up gardening because I wanted to learn a fun new skill, and I'm excited to grow fresh, homegrown food for my family.
          </p>
@@ -40,11 +41,21 @@
             <a href="https://www.youtube.com/@NoobGardenerAmI" target="_blank" rel="noopener noreferrer">Subscribe on YouTube</a> | 
             <a href="garden-media.html">Watch Latest Videos</a>
          </p>
+	
+	<!-- Audio file (hidden from view) -->
+
 
          <h3>A Quick Thank You</h3>
          <p>
             I wouldn't even know where to start without the amazing gardening community online. A huge thank you to all the other creators who have been generously sharing their gardening guides, tips, and tutorials—your advice is helping turn this noob gardener into a grower!
          </p>
+		 	<audio id="bg-music" loop>
+		<source src="media/Garden.mp3" type="audio/mpeg">
+	</audio>
+
+	<button id="music-btn" onclick="toggleMusic()">▶ MUSIC</button>
+	<audio id="bg-music" src="media/Garden.mp3" loop></audio>
+
       </section>
 	  
 	  <section>
@@ -64,13 +75,35 @@
       <figcaption>First year of growth on the berry bushes</figcaption>
     </figure>
   </div>
+  
+  	<p>Sakura Girl - Garden is under a Creative Commons BY 3.0 license.
+	<a href="https://www.youtube.com/redirect?event=video_description&redir_token=QUlxb01IWXRuQk01OUxGRlE0dEVydDFJUTFOYnxBQnJ0Njlra3NlOFQ1dWE3bjlwbWw5c2NUYVFIbm0wT043dnk0T2NGcV9xNjZKUDV1OGJqV1kyYXpBcVBKM0QyQUEzTldMaFpfcjNtdE1oTXdNMzRPZVdkU2pIMTZsMnBGNERj&q=https%3A%2F%2Fcreativecommons.org%2Flicenses%2Fby%2F3.0%2F&v=JfdakgnQdDA" target="_blank" >https://creativecommons.org/licenses/...</a></p>
+  <p>/ sakuragirl_official  
+Music powered by BreakingCopyright:    • Free Happy Pop Music (For Videos) - "Garde...  
+🔎 Find more music here: <a href="https://www.youtube.com/redirect?event=video_description&redir_token=QUlxb01IWXk2REI2dUx0ODJBRGFvYU14THl3M3xBQnJ0NjltTjMxOGRoLXRCSXd2Rk5kTEV2QWtWY1Z2OVVZZWhtWGoyekFGRmpoTHRZMDNER0wtbWpwbE1NZGZYMUFYcm5ZYVVQR2VLandJVzR5YzZPTnAtQ0MzcWlNVFBLRndK&q=https%3A%2F%2Fbreakingcopyright.com%2F&v=JfdakgnQdDA" target="_blank" >https://creativecommons.org/licenses/...</a></p>
 </section>
    </main>
    <script src="garden-home-script.js" defer></script>
 <footer>
 <p>&copy; Nathan Johnson</p>
 </footer>
+<script>
+  const music = document.getElementById("bg-music");
+  const musicBtn = document.getElementById("music-btn");
 
+  // Optional: set initial volume to low (0.0 to 1.0)
+  music.volume = 0.2;
+
+  function toggleMusic() {
+    if (music.paused) {
+      music.play();
+      musicBtn.textContent = "⏸ PAUSE MUSIC";
+    } else {
+      music.pause();
+      musicBtn.textContent = "▶ MUSIC";
+    }
+  }
+</script>
 </body>
 
 </html>
